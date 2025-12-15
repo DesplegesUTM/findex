@@ -9,7 +9,7 @@ Content-Type: application/json
 
 
 ### Registro
-POST https://findex-backend.onrender.com/auth/registrar
+POST http://localhost:3000/auth/registrar
 Content-Type: application/json
 
 {

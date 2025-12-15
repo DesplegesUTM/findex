@@ -7,17 +7,19 @@ async function bootstrap() {
   const port = process.env.PORT ?? 3000;
 
   // Configuración de CORS
-  app.enableCors({
-    origin: ['http://localhost:4200', 'https://findex-frontend.onrender.com'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    credentials: true,
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'X-Requested-With',
-      'Accept',
-    ],
-  });
+  // app.enableCors({
+  //   origin: ['https://findex-frontend.onrender.com'], //'http://localhost:4200',
+  //   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  //   credentials: true,
+  //   allowedHeaders: [
+  //     'Content-Type',
+  //     'Authorization',
+  //     'X-Requested-With',
+  //     'Accept',
+  //     'Access-Control-Allow-Origin',
+  //   ],
+  // });
+  app.enableCors();
 
   // Swagger configuration
   const config = new DocumentBuilder()
