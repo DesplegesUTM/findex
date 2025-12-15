@@ -19,7 +19,7 @@ export class DatabaseService {
     console.log('[DatabaseService] Variables de conexión cargadas:', {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
-      database: process.env.DB_DATABASE,
+      database: 'postgres',
       user: process.env.DB_USER,
       hasPassword: !!process.env.DB_PASSWORD,
     });
