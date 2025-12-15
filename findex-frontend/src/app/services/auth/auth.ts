@@ -12,7 +12,7 @@ export class Auth {
   constructor(private http: HttpClient) {}
 
   login(data: { email: string; contraseña: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, data).pipe(
+    return this.http.post(`${this.apiUrl}/auth/login`, data).pipe(
       tap((response: any) => {
         console.log('Respuesta del servidor de login:', response);
         if (response && response.token) {
@@ -40,7 +40,7 @@ export class Auth {
   }
 
   register(data: { email: string; contraseña: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/registrar`, data);
+    return this.http.post(`${this.apiUrl}/auth/registrar`, data);
   }
 
   logout() {
