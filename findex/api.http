@@ -14,7 +14,7 @@ POST http://localhost:3000/auth/registrar
 Content-Type: application/json
 
 {
-  "email": "kevin@gmail.com",
+  "email": "kevin@gmail.commmmm",
   "contraseña": "merotravez123456"
 }
 
@@ -66,7 +66,7 @@ GET http://localhost:3000/prestatario
 ### Prestamistas
 GET http://localhost:3000/prestamista
 ### Ofertas de Prestamo
-GET http://localhost:3000/oferta-prestamo
+GET  https://findex-backend.onrender.com/oferta-prestamo
 ### Prestamos
 GET http://localhost:3000/prestamo
 ### Pagos
@@ -128,7 +128,7 @@ GET http://localhost:3000/metodo-pago/1
 
 
 ### Usuarios
-POST http://localhost:3000/usuario
+POST  https://findex-backend.onrender.com/usuario
 Content-Type: application/json
 
 {

@@ -5,6 +5,20 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const port = process.env.PORT ?? 3000;
+
+  // Configuración de CORS
+  app.enableCors({
+    origin: ['http://localhost:4200', 'https://findex-frontend.onrender.com'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'X-Requested-With',
+      'Accept',
+    ],
+  });
+
   // Swagger configuration
   const config = new DocumentBuilder()
     .setTitle('Findex API')
