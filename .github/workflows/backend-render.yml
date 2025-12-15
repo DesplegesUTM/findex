@@ -4,7 +4,7 @@ on:
   push:
     branches: ['main']
     paths:
-      - 'findex/**' # 👈 SOLO si cambia el backend
+      - 'findex/**'
 
 jobs:
   deploy:

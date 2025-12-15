@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Direccion {
-  private baseUrl = '/api'; // Cambia esto según tu configuración de API
+  private baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
   obtenerCiudades(): Observable<any> {

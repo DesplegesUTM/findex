@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Prestamista {
-  private baseUrl = '/api'; // Cambia esto según tu configuración de API
+  private baseUrl = environment.apiUrl; // Cambia esto según tu configuración de API
 
   constructor(private http: HttpClient) {}
 

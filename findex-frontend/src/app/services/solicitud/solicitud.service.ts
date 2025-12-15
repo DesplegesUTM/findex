@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class SolicitudService {
-  private baseUrl = '/api/solicitud-prestamo';
+  private baseUrl = `${environment.apiUrl}/solicitud-prestamo`;
   constructor(private http: HttpClient) {}
 
   crear(data: any): Observable<any> {
