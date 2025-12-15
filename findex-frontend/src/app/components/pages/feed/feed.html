@@ -1,0 +1,106 @@
+<app-header (buscarCodigo)="onBuscarCodigo($event)"></app-header>
+
+<div class="feed-wrapper">
+  <div class="feed-bar">
+    <div class="feed-stats">
+      <div class="stat-box">
+        <label>Ofertas</label>
+        <span>{{ ofertas_prestamos.length }}</span>
+      </div>
+      <div class="stat-box" *ngIf="terminoBusqueda">
+        <label>Filtro</label>
+        <span>{{ terminoBusqueda }}</span>
+      </div>
+    </div>
+    <div class="feed-actions" *ngIf="terminoBusqueda">
+      <button class="ghost" (click)="onBuscarCodigo('')">Limpiar filtro</button>
+    </div>
+  </div>
+
+  <div
+    class="sin-resultados panel-empty"
+    *ngIf="ofertas_prestamos.length === 0"
+  >
+    <p *ngIf="terminoBusqueda; else noHayOfertas">
+      No se encontraron ofertas con el código
+      <strong>{{ terminoBusqueda }}</strong
+      >.
+      <button class="ghost" (click)="onBuscarCodigo('')">Quitar filtro</button>
+    </p>
+    <ng-template #noHayOfertas>
+      <p>No hay ofertas disponibles por ahora.</p>
+    </ng-template>
+  </div>
+
+  <div class="cards-grid">
+    <div
+      class="offer-card"
+      *ngFor="let oferta of ofertas_prestamos; trackBy: trackById"
+    >
+      <div class="card-head">
+        <div class="avatar">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png"
+            alt="avatar"
+          />
+        </div>
+        <div class="head-main">
+          <h3>
+            {{ oferta.nombre_prestamista }} {{ oferta.apellido_prestamista }}
+          </h3>
+          <div class="meta-line">
+            <span class="pill rango" [ngClass]="oferta.rango?.toLowerCase()">{{
+              oferta.rango
+            }}</span>
+            <span class="fecha">{{
+              oferta.fecha_publicacion | date : "dd/MM/yyyy"
+            }}</span>
+            <span class="pill codigo">COD: {{ oferta.codigo_oferta }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="data-grid">
+        <div class="dato">
+          <label>Monto</label>
+          <span>{{
+            oferta.monto | currency : "USD" : "symbol" : "1.0-0"
+          }}</span>
+        </div>
+        <div class="dato">
+          <label>Tasa</label>
+          <span>{{ oferta.tasa_interes }}%</span>
+        </div>
+        <div class="dato">
+          <label>Cuotas</label>
+          <span>{{ oferta.nro_cuotas }}</span>
+        </div>
+        <div class="dato">
+          <label>Cuota</label>
+          <span>{{ oferta.monto_cuota | currency : "USD" }}</span>
+        </div>
+        <div class="dato">
+          <label>Frecuencia</label>
+          <span>{{ oferta.frecuencia_pago }}</span>
+        </div>
+      </div>
+      <div class="actions" *ngIf="tipo === 2">
+        <button
+          class="primary"
+          (click)="aplicar(oferta)"
+          [disabled]="oferta._aplicando || oferta._yaAplico"
+        >
+          {{
+            oferta._yaAplico
+              ? "Ya aplicado"
+              : oferta._aplicando
+              ? "Enviando..."
+              : "Aplicar"
+          }}
+        </button>
+        <span class="estado-aplicacion" *ngIf="oferta._mensaje">{{
+          oferta._mensaje
+        }}</span>
+      </div>
+    </div>
+  </div>
+</div>

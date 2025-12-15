@@ -1,0 +1,144 @@
+<app-header></app-header>
+<div class="gestionar-wrapper">
+  <div class="summary-bar">
+    <div class="summary-item">
+      <label>Ofertas</label>
+      <span>{{ totalOfertas }}</span>
+    </div>
+    <div class="summary-item">
+      <label>Activas</label>
+      <span>{{ ofertasActivas }}</span>
+    </div>
+    <div class="summary-item">
+      <label>Inactivas</label>
+      <span>{{ ofertasInactivas }}</span>
+    </div>
+    <div class="summary-item" *ngIf="seleccionada">
+      <label>Seleccionada</label>
+      <span>#{{ seleccionada.codigo_oferta }}</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <section class="panel ofertas-panel">
+      <header class="panel-header">
+        <h2>Mis Ofertas</h2>
+        <div class="pills">
+          <span class="pill neutral" *ngIf="cargando">Cargando...</span>
+          <span class="pill soft" *ngIf="!cargando && !ofertas.length"
+            >Sin ofertas</span
+          >
+        </div>
+      </header>
+      <div class="cards-grid" *ngIf="!cargando">
+        <div
+          class="oferta-card"
+          *ngFor="let o of ofertas; trackBy: trackByOferta"
+          (click)="verSolicitudes(o)"
+          [class.selected]="seleccionada?.id_oferta === o.id_oferta"
+        >
+          <div class="card-top">
+            <div class="title-block">
+              <h3>#{{ o.codigo_oferta }}</h3>
+              <div class="pills">
+                <span
+                  class="pill estado"
+                  [ngClass]="o.estado ? 'activa' : 'inactiva'"
+                  >{{ o.estado ? "Activa" : "Inactiva" }}</span
+                >
+                <span class="pill cuota">{{ o.nro_cuotas }} cuotas</span>
+                <span class="pill freq">{{ o.frecuencia_pago }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="meta-grid">
+            <div class="meta">
+              <label>Monto</label>
+              <span>{{ o.monto | currency : "USD" }}</span>
+            </div>
+            <div class="meta">
+              <label>Interés %</label>
+              <span>{{ o.tasa_interes }}</span>
+            </div>
+            <div class="meta">
+              <label>Cuota</label>
+              <span>{{ o.monto_cuota | currency : "USD" }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel solicitudes-panel" *ngIf="seleccionada">
+      <header class="panel-header">
+        <h2>Solicitudes #{{ seleccionada.codigo_oferta }}</h2>
+        <div class="pills">
+          <span class="pill soft">{{ solicitudes.length }} total</span>
+        </div>
+      </header>
+
+      <div class="estado-carga" *ngIf="seleccionada._cargando">
+        Cargando solicitudes...
+      </div>
+      <div
+        class="estado-vacio"
+        *ngIf="!seleccionada._cargando && solicitudes.length === 0"
+      >
+        Sin solicitudes.
+      </div>
+
+      <div
+        class="solicitudes-table-wrapper"
+        *ngIf="!seleccionada._cargando && solicitudes.length > 0"
+      >
+        <table class="solicitudes-table">
+          <thead>
+            <tr>
+              <th>Solicitante</th>
+              <th>Monto</th>
+              <th>Fecha</th>
+              <th>Contacto</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of solicitudes; trackBy: trackBySolicitud">
+              <td>{{ s.nombre }} {{ s.apellido }}</td>
+              <td>
+                {{ s.monto_solicitado | currency : "USD" }}
+              </td>
+              <td>{{ s.fecha_creacion | date : "short" }}</td>
+              <td class="contacto">
+                <div><strong>Tel:</strong> {{ s.telefono || "N/D" }}</div>
+                <div><strong>Email:</strong> {{ s.email || "N/D" }}</div>
+              </td>
+              <td>
+                <span class="pill mini estado" [ngClass]="s.estado">{{
+                  s.estado
+                }}</span>
+              </td>
+              <td class="acciones">
+                <button
+                  class="btn success"
+                  (click)="aceptar(s)"
+                  [disabled]="s.estado !== 'pendiente' || s._procesando"
+                >
+                  Aceptar
+                </button>
+                <button
+                  class="btn danger"
+                  (click)="rechazar(s)"
+                  [disabled]="s.estado !== 'pendiente' || s._procesando"
+                >
+                  Rechazar
+                </button>
+                <span class="msg" *ngIf="s._mensaje">{{ s._mensaje }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

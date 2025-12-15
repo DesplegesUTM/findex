@@ -1,0 +1,413 @@
+/* ===== Layout General ===== */
+.gestionar-wrapper {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 42px clamp(16px, 4vw, 60px) 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Summary bar */
+.summary-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.85rem;
+}
+.summary-item {
+  background: linear-gradient(135deg, #ffffff, #f5f7fa);
+  border: 1px solid #e5e8ec;
+  border-radius: 0.95rem;
+  padding: 0.85rem 1rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.summary-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(56, 119, 255, 0.12),
+    transparent 55%
+  );
+  opacity: 0.9;
+  pointer-events: none;
+}
+.summary-item label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #667085;
+}
+.summary-item span {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: 0.5px;
+}
+
+/* Layout grids */
+.layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+  gap: 40px;
+  align-items: start;
+}
+.panel {
+  background: #fff;
+  border-radius: 22px;
+  padding: 30px 32px 36px;
+  box-shadow: 0 10px 24px -4px rgba(31, 38, 135, 0.08),
+    0 4px 12px -2px rgba(31, 38, 135, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  position: relative;
+  animation: fadeIn 0.55s ease;
+}
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.28rem;
+  letter-spacing: 0.5px;
+  color: #1f2d3d;
+}
+
+/* Pills */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  border-radius: 2rem;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+  line-height: 1;
+}
+.pill.neutral {
+  background: #6b7f8d;
+  color: #fff;
+  border: none;
+}
+.pill.soft {
+  background: #e2e8f0;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+.pill.estado.activa {
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.pill.estado.inactiva {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+.pill.mini {
+  font-size: 0.55rem;
+  padding: 0.3rem 0.55rem;
+}
+.pill.cuota {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+.pill.freq {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+.pill.estado.pendiente {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+}
+.pill.estado.aceptada {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+}
+.pill.estado.rechazada {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+/* Ofertas cards */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.oferta-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e5e8ec;
+  border-radius: 1.1rem;
+  padding: 1rem 1rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px -3px rgba(24, 39, 75, 0.05),
+    0 2px 4px -2px rgba(24, 39, 75, 0.07);
+  transition: border-color 0.3s ease,
+    transform 0.4s cubic-bezier(0.12, 0.8, 0.32, 1), box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.oferta-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 70% 20%,
+    rgba(99, 102, 241, 0.18),
+    rgba(99, 102, 241, 0) 70%
+  );
+  opacity: 0.55;
+  pointer-events: none;
+}
+.oferta-card:hover {
+  transform: translateY(-4px);
+  border-color: #c3d4f9;
+  box-shadow: 0 10px 25px -5px rgba(24, 39, 75, 0.12),
+    0 4px 8px -3px rgba(24, 39, 75, 0.1);
+}
+.oferta-card.selected {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+.title-block h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #1e293b;
+}
+
+/* Meta mini grid */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.7rem;
+}
+.meta {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 0.55rem 0.65rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.meta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 85% 25%,
+    rgba(99, 102, 241, 0.15),
+    transparent 65%
+  );
+  opacity: 0.55;
+  pointer-events: none;
+}
+.meta label {
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #64748b;
+}
+.meta span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: 0.3px;
+}
+
+/* Solicitudes tabla */
+.solicitudes-table-wrapper {
+  overflow: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 18px -6px rgba(24, 39, 75, 0.08),
+    0 3px 8px -4px rgba(24, 39, 75, 0.07);
+}
+.solicitudes-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.8rem;
+}
+.solicitudes-table thead th {
+  text-align: left;
+  background: #f1f5f9;
+  font-size: 0.6rem;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #475569;
+  padding: 12px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.solicitudes-table tbody td {
+  padding: 11px 14px;
+  border-top: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+.solicitudes-table tbody tr {
+  transition: background 0.25s ease;
+}
+.solicitudes-table tbody tr:hover {
+  background: #f8fafc;
+}
+.contacto {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.65rem;
+}
+
+/* Botones acciones */
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.btn {
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.6px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: 0.25s ease;
+  text-transform: uppercase;
+}
+.btn.success {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #fff;
+  box-shadow: 0 4px 12px -4px rgba(22, 163, 74, 0.45);
+}
+.btn.success:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -6px rgba(22, 163, 74, 0.55);
+}
+.btn.danger {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: #fff;
+  box-shadow: 0 4px 12px -4px rgba(220, 38, 38, 0.45);
+}
+.btn.danger:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -6px rgba(220, 38, 38, 0.55);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.msg {
+  margin-top: 4px;
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: #475569;
+  display: inline-block;
+}
+
+/* Estados */
+.estado-carga,
+.estado-vacio {
+  font-size: 0.75rem;
+  color: #64748b;
+  letter-spacing: 0.3px;
+  padding: 0.5rem 0.2rem;
+}
+.estado-vacio {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .gestionar-wrapper {
+    padding: 36px 18px 60px;
+  }
+  .panel {
+    padding: 26px 24px 32px;
+  }
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  .meta-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  .solicitudes-table thead {
+    display: none;
+  }
+  .solicitudes-table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 0.75rem;
+    padding: 10px 10px 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .solicitudes-table tbody td {
+    border: none;
+    padding: 2px 4px;
+    font-size: 0.68rem;
+  }
+  .solicitudes-table tbody td.acciones {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+}

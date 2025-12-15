@@ -1,0 +1,317 @@
+<header class="site-header">
+  <input type="checkbox" id="btn-menu" hidden #menuToggle />
+  <div class="nav-inner">
+    <div class="left">
+      <label for="btn-menu" class="hamburger" aria-label="Abrir menú">☰</label>
+      <a
+        class="brand"
+        routerLink="/feed"
+        routerLinkActive="active"
+        aria-label="Ir al feed"
+        (click)="closeSidebar()"
+      >
+        <span class="logo-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 166 263"
+            width="30"
+            height="30"
+          >
+            <g filter="url(#a)">
+              <path
+                fill="#58E5BB"
+                d="M42.086 128.474 28.427 90.089c-2.383-6.696 2.436-13.802 9.291-13.48 76.537 3.589 115.804 31.534 112.144 112.12-13.311-56.28-77.153-60.255-107.776-60.255Z"
+              />
+            </g>
+            <g filter="url(#b)">
+              <path
+                fill="#58E5BB"
+                d="M21.453 57.833 7.236 20.639C4.662 13.908 9.478 6.6 16.44 6.683c78.163.938 132.738 6.243 132.738 110.722-13.311-56.28-97.101-59.572-127.725-59.572Z"
+              />
+            </g>
+            <g filter="url(#c)">
+              <path
+                fill="#58E5BB"
+                d="m63.245 201.377-14.653-41.075c-2.376-6.661 2.376-13.751 9.196-13.388 62.444 3.327 93.677 30.587 90.06 110.239-13.311-56.28-53.76-55.776-84.604-55.776Z"
+              />
+            </g>
+          </svg>
+        </span>
+        <span class="brand-name">Findex</span>
+      </a>
+      <div class="role-pill" *ngIf="tipo === 1">Prestamista</div>
+      <div class="role-pill alt" *ngIf="tipo === 2">Prestatario</div>
+    </div>
+    <div class="center">
+      <div class="search-box">
+        <input
+          type="text"
+          placeholder="Buscar código..."
+          [(ngModel)]="termino"
+          (keyup)="onBuscarEnter($event)"
+        />
+        <button (click)="dispararBusqueda()" aria-label="Buscar">Buscar</button>
+      </div>
+    </div>
+    <div class="right">
+      <label for="btn-menu" class="avatar" aria-label="Abrir menú lateral">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png"
+          alt="Avatar"
+        />
+      </label>
+    </div>
+  </div>
+
+  <!-- Overlay Sidebar -->
+  <div class="sidebar-overlay"></div>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="mini-brand">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 166 263"
+          width="28"
+          height="28"
+        >
+          <g filter="url(#a)">
+            <path
+              fill="#58E5BB"
+              d="M42.086 128.474 28.427 90.089c-2.383-6.696 2.436-13.802 9.291-13.48 76.537 3.589 115.804 31.534 112.144 112.12-13.311-56.28-77.153-60.255-107.776-60.255Z"
+            />
+          </g>
+          <g filter="url(#b)">
+            <path
+              fill="#58E5BB"
+              d="M21.453 57.833 7.236 20.639C4.662 13.908 9.478 6.6 16.44 6.683c78.163.938 132.738 6.243 132.738 110.722-13.311-56.28-97.101-59.572-127.725-59.572Z"
+            />
+          </g>
+          <g filter="url(#c)">
+            <path
+              fill="#58E5BB"
+              d="m63.245 201.377-14.653-41.075c-2.376-6.661 2.376-13.751 9.196-13.388 62.444 3.327 93.677 30.587 90.06 110.239-13.311-56.28-53.76-55.776-84.604-55.776Z"
+            />
+          </g>
+        </svg>
+        <span>Findex</span>
+      </div>
+      <label for="btn-menu" class="close" aria-label="Cerrar menú">✕</label>
+    </div>
+    <div class="sidebar-user">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png"
+        alt="Avatar"
+      />
+      <div class="user-role" *ngIf="tipo === 1">Prestamista</div>
+      <div class="user-role alt" *ngIf="tipo === 2">Prestatario</div>
+    </div>
+    <nav class="nav-groups">
+      <div class="nav-group">
+        <h4>General</h4>
+        <a
+          routerLink="/perfil"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+          >👤 Perfil</a
+        >
+        <a routerLink="/feed" routerLinkActive="active" (click)="closeSidebar()"
+          >💰 Ofertas Préstamos</a
+        >
+        <a
+          routerLink="/mis-prestamos"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+          >📊 Mis Préstamos</a
+        >
+        <a
+          routerLink="/estadísticas"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+          >📈 Estadísticas</a
+        >
+      </div>
+      <div class="nav-group" *ngIf="tipo === 1">
+        <h4>Prestamista</h4>
+        <a
+          routerLink="/crear-prestamo"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+          >➕ Crear préstamo</a
+        >
+        <a
+          routerLink="/gestionar-solicitudes"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+          >📬 Solicitudes</a
+        >
+      </div>
+      <div class="nav-group" *ngIf="tipo === 2">
+        <h4>Prestatario</h4>
+        <a
+          routerLink="/mis-pagos"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+          >💵 Mis Pagos</a
+        >
+      </div>
+      <div class="nav-group">
+        <h4>Otros</h4>
+        <a
+          routerLink="/contactos"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+          >📩 Contacto</a
+        >
+        <a
+          routerLink="/configuracion"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+          >⚙️ Configuración</a
+        >
+        <a
+          routerLink="/ayuda"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+          >📖 Ayuda</a
+        >
+        <a (click)="logout(); closeSidebar()" class="logout"
+          >🔒 Cerrar sesión</a
+        >
+      </div>
+    </nav>
+  </aside>
+</header>
+
+<!-- <style>
+  .main-header {
+    background-color: #2997c2;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+  }
+
+  .logo-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-text h1 {
+    font-size: 24px;
+    margin: 0;
+    color: white;
+  }
+
+  .logo-icon {
+    height: 40px;
+    filter: drop-shadow(0 0 4px #58e5bb);
+  }
+
+  .search-bar input {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    width: 220px;
+    font-size: 14px;
+  }
+
+  /* Menú hamburguesa */
+  .btn-menu {
+    display: flex;
+    align-items: center;
+  }
+  .btn-menu label {
+    font-size: 28px;
+    cursor: pointer;
+    color: #f5f6f7;
+    margin-left: 20px;
+  }
+
+  /* Fondo oscurecido al abrir menú */
+  .container-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 999;
+  }
+
+  /* Mostrar menú cuando el checkbox está activo */
+  #btn-menu:checked ~ .container-menu {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Menú lateral */
+  .cont-menu {
+    width: 250px;
+    height: 100%;
+    background-color: #1f1f1f;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+  #btn-menu:checked ~ .container-menu .cont-menu {
+    transform: translateX(0);
+  }
+
+  /* Encabezado del menú */
+  .menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  .logo-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #58e5bb;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .logo-mini svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Botón cerrar */
+  .close-btn {
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  /* Imagen de perfil */
+  .profile-pic img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin-left: 70px;
+    margin-top: 70px;
+  }
+
+  /* Enlaces del menú */
+  .cont-menu nav a {
+    display: block;
+    padding: 15px 10px;
+    text-decoration: none;
+    color: #c7c7c7;
+    border-left: 3px solid transparent;
+    transition: 0.3s;
+    font-size: 15px;
+  }
+  .cont-menu nav a:hover {
+    background-color: #2a2a2a;
+    border-left: 3px solid #58e5bb;
+    color: #fff;
+  }
+</style> -->

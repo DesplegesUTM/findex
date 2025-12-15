@@ -1,0 +1,81 @@
+<!-- home.component.html -->
+<div class="home-container">
+  <div class="content">
+    <h1>Bienvenido a Findex</h1>
+
+    <div class="logo">
+      <!-- tu SVG aquí -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="300px"
+        fill="none"
+        viewBox="0 0 166 263"
+        aria-label="Findex Logo"
+      >
+        <g filter="url(#a)">
+          <path
+            fill="#58E5BB"
+            d="M42.086 128.474 28.427 90.089c-2.383-6.696 2.436-13.802 9.291-13.48 76.537 3.589 115.804 31.534 112.144 112.12-13.311-56.28-77.153-60.255-107.776-60.255Z"
+          />
+        </g>
+        <g filter="url(#b)">
+          <path
+            fill="#58E5BB"
+            d="M21.453 57.833 7.236 20.639C4.662 13.908 9.478 6.6 16.44 6.683c78.163.938 132.738 6.243 132.738 110.722-13.311-56.28-97.101-59.572-127.725-59.572Z"
+          />
+        </g>
+        <g filter="url(#c)">
+          <path
+            fill="#58E5BB"
+            d="m63.245 201.377-14.653-41.075c-2.376-6.661 2.376-13.751 9.196-13.388 62.444 3.327 93.677 30.587 90.06 110.239-13.311-56.28-53.76-55.776-84.604-55.776Z"
+          />
+        </g>
+        <!-- filters definidos igual que antes -->
+        <defs>...</defs>
+      </svg>
+      <p class="description">
+        Conectamos a prestamistas con comerciantes de forma rápida,
+        <span>segura y sin complicaciones.</span>
+      </p>
+    </div>
+
+    <div class="actions">
+      <a routerLink="/register" class="link">Crear cuenta</a>
+
+      <div class="dropdown">
+        <button class="signin-btn" (click)="toggleLoginForm()">
+          Iniciar sesión
+        </button>
+
+        <!-- 👇 Se muestra solo cuando mostrarLogin es true -->
+        <div class="login-form" *ngIf="mostrarLogin">
+          <form (ngSubmit)="login()" #form="ngForm">
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              [(ngModel)]="email"
+              name="email"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              [(ngModel)]="password"
+              name="password"
+              required
+              minlength="6"
+            />
+            <button type="submit" [disabled]="!form.valid || isLoading">
+              <span *ngIf="isLoading">Iniciando sesión...</span>
+              <span *ngIf="!isLoading">Iniciar sesión</span>
+            </button>
+
+            <p class="footer">
+              ¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,300 @@
+<div class="perfil-wrapper" *ngIf="datosUsuario; else cargando">
+  <div class="perfil-layout">
+    <!-- Panel principal -->
+    <form
+      (ngSubmit)="guardarConValidacion()"
+      #perfilForm="ngForm"
+      class="panel form-panel"
+      novalidate
+    >
+      <header class="panel-header">
+        <h2>Editar Perfil</h2>
+        <div
+          class="pill"
+          [ngClass]="{
+            prestamista: tipo === 1,
+            prestatario: tipo === 2,
+            admin: tipo === 3
+          }"
+        >
+          {{
+            tipo === 1 ? "Prestamista" : tipo === 2 ? "Prestatario" : "Admin"
+          }}
+        </div>
+      </header>
+
+      <div class="alert warn" *ngIf="tipoCambiadoPendiente">
+        Tipo de usuario actualizado. Cierra sesión e ingresa de nuevo para
+        refrescar permisos.
+      </div>
+
+      <section class="grid-fields">
+        <div class="field">
+          <label>Nombre</label>
+          <input
+            type="text"
+            name="nombre"
+            [(ngModel)]="datosUsuario.nombre"
+            required
+          />
+        </div>
+        <div class="field">
+          <label>Apellido</label>
+          <input
+            type="text"
+            name="apellido"
+            [(ngModel)]="datosUsuario.apellido"
+            required
+          />
+        </div>
+        <div class="field">
+          <label>Fecha nacimiento</label>
+          <input
+            type="date"
+            name="fecha_nacimiento"
+            [(ngModel)]="datosUsuario.fecha_nacimiento"
+          />
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input
+            type="text"
+            name="telefono"
+            [(ngModel)]="datosUsuario.telefono"
+            required
+          />
+        </div>
+        <div class="field full">
+          <label>Correo</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="datosUsuario.email"
+            required
+          />
+        </div>
+        <div class="field">
+          <label>Tipo usuario</label>
+          <div class="static-box" *ngIf="tipo === 3 || tipoYaDefinido">
+            {{
+              tipo === 1 ? "Prestamista" : tipo === 2 ? "Prestatario" : "Admin"
+            }}
+          </div>
+          <select
+            *ngIf="tipo !== 3 && !tipoYaDefinido"
+            name="id_tipo"
+            [(ngModel)]="tipo"
+            (change)="onTipoChange()"
+            required
+          >
+            <option [value]="1">Prestamista</option>
+            <option [value]="2">Prestatario</option>
+          </select>
+        </div>
+      </section>
+
+      <h3 class="section-title">Dirección personal</h3>
+      <section class="grid-fields">
+        <div class="field">
+          <label>Ciudad</label>
+          <select
+            name="ciudad"
+            [(ngModel)]="datosUsuario.id_ciudad"
+            (change)="actualizarBarrios($event, 'usuario')"
+            required
+          >
+            <option value="">Seleccionar...</option>
+            <option *ngFor="let ciudad of ciudades" [value]="ciudad.id_ciudad">
+              {{ ciudad.nombre_ciudad }}
+            </option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Barrio</label>
+          <select
+            name="barrio"
+            [(ngModel)]="datosUsuario.id_barrio"
+            (change)="actualizarDirecciones($event, 'usuario')"
+            required
+          >
+            <option value="">Seleccionar...</option>
+            <option *ngFor="let barrio of barrios" [value]="barrio.id_barrio">
+              {{ barrio.nombre_barrio }}
+            </option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>Dirección</label>
+          <select
+            name="direccion"
+            [(ngModel)]="datosUsuario.id_direccion"
+            required
+          >
+            <option value="">Seleccionar...</option>
+            <option
+              *ngFor="let direccion of direcciones"
+              [value]="direccion.id_direccion"
+            >
+              {{ direccion.calle1 }} y {{ direccion.calle2 }}
+            </option>
+          </select>
+        </div>
+      </section>
+
+      <h3 class="section-title" *ngIf="tipo === 1">Datos de prestamista</h3>
+      <section class="grid-fields" *ngIf="tipo === 1">
+        <div class="field">
+          <label>Capital disponible</label>
+          <input
+            type="number"
+            name="capital"
+            step="0.01"
+            [(ngModel)]="datosPrestamista.capital"
+            required
+          />
+        </div>
+        <div class="field full">
+          <label>Rango</label>
+          <div class="static-box note">
+            El rango se calcula automáticamente por tus préstamos completados.
+          </div>
+        </div>
+      </section>
+
+      <h3 class="section-title" *ngIf="tipo === 2">Datos de prestatario</h3>
+      <section class="grid-fields" *ngIf="tipo === 2">
+        <div class="field">
+          <label>Nombre negocio</label>
+          <input
+            type="text"
+            name="nombre_negocio"
+            [(ngModel)]="datosPrestatario.nombre_negocio"
+            required
+          />
+        </div>
+        <div class="field">
+          <label>Ingreso mensual</label>
+          <input
+            type="number"
+            step="0.01"
+            name="ingreso_mensual"
+            [(ngModel)]="datosPrestatario.ingreso_mensual"
+            required
+          />
+        </div>
+      </section>
+
+      <h3 class="section-title" *ngIf="tipo === 2">Dirección del negocio</h3>
+      <section class="grid-fields" *ngIf="tipo === 2">
+        <div class="field">
+          <label>Ciudad</label>
+          <select
+            name="ciudad_negocio"
+            [(ngModel)]="datosPrestatario.id_ciudad"
+            (change)="actualizarBarrios($event, 'prestatario')"
+            required
+          >
+            <option value="">Seleccionar...</option>
+            <option
+              *ngFor="let ciudad of prestatario_ciudad"
+              [value]="ciudad.id_ciudad"
+            >
+              {{ ciudad.nombre_ciudad }}
+            </option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Barrio</label>
+          <select
+            name="barrio_negocio"
+            [(ngModel)]="datosPrestatario.id_barrio"
+            (change)="actualizarDirecciones($event, 'prestatario')"
+            required
+          >
+            <option value="">Seleccionar...</option>
+            <option
+              *ngFor="let barrio of prestatario_barrio"
+              [value]="barrio.id_barrio"
+            >
+              {{ barrio.nombre_barrio }}
+            </option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>Dirección</label>
+          <select
+            name="direccion_negocio"
+            [(ngModel)]="datosPrestatario.id_direccion"
+            required
+          >
+            <option value="">Seleccionar...</option>
+            <option
+              *ngFor="let direccion of prestatario_direcciones"
+              [value]="direccion.id_direccion"
+            >
+              {{ direccion.calle1 }} {{ direccion.calle2 }}
+            </option>
+          </select>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button
+          type="submit"
+          class="primary"
+          [disabled]="isLoading || !perfilForm.valid"
+          [class.loading]="isLoading"
+        >
+          {{ isLoading ? "Guardando..." : "Guardar cambios" }}
+        </button>
+        <button
+          type="button"
+          class="ghost"
+          (click)="volver()"
+          [disabled]="isLoading"
+        >
+          Volver
+        </button>
+      </div>
+    </form>
+
+    <!-- Panel lateral resumen -->
+    <aside class="panel side-panel">
+      <h3>Resumen</h3>
+      <ul class="stats">
+        <li>
+          <label>Tipo</label>
+          <span>{{
+            tipo === 1 ? "Prestamista" : tipo === 2 ? "Prestatario" : "Admin"
+          }}</span>
+        </li>
+        <li>
+          <label>Email</label>
+          <span>{{ datosUsuario.email }}</span>
+        </li>
+        <li>
+          <label>Capital</label>
+          <span *ngIf="tipo === 1">{{
+            datosPrestamista.capital || 0 | currency : "USD"
+          }}</span>
+          <span *ngIf="tipo !== 1">—</span>
+        </li>
+        <li *ngIf="tipo === 2">
+          <label>Ingreso mensual</label>
+          <span>{{
+            datosPrestatario.ingreso_mensual || 0 | currency : "USD"
+          }}</span>
+        </li>
+      </ul>
+      <div class="note">
+        Asegúrate de presionar Guardar para aplicar los cambios.
+      </div>
+    </aside>
+  </div>
+</div>
+
+<ng-template #cargando>
+  <div class="perfil-vacio">
+    <p>Cargando datos del perfil...</p>
+  </div>
+</ng-template>

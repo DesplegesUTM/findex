@@ -1,0 +1,166 @@
+<div class="prestamo-wrapper">
+  <div class="prestamo-layout">
+    <section class="panel form-panel">
+      <header class="panel-header">
+        <h2>Crear Préstamo</h2>
+        <div class="pills">
+          <span class="pill neutral" *ngIf="prestamo.codigo_oferta">{{
+            prestamo.codigo_oferta
+          }}</span>
+          <span class="pill soft" *ngIf="!prestamo.codigo_oferta"
+            >SIN CÓDIGO</span
+          >
+        </div>
+      </header>
+
+      <form
+        (ngSubmit)="guardarCambios()"
+        #form="ngForm"
+        class="form-grid"
+        novalidate
+      >
+        <div class="field code full">
+          <label>Código Oferta</label>
+          <div
+            class="input-wrapper clickable"
+            (click)="generarCodigoOferta()"
+            [class.generated]="prestamo.codigo_oferta"
+          >
+            <input
+              type="text"
+              name="codigo_oferta"
+              [(ngModel)]="prestamo.codigo_oferta"
+              required=""
+              placeholder="Click para generar"
+              readonly
+            />
+            <span class="hint" *ngIf="!prestamo.codigo_oferta">Generar</span>
+            <span class="hint ok" *ngIf="prestamo.codigo_oferta">Listo</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Monto</label>
+          <div class="input-wrapper">
+            <input
+              type="number"
+              name="monto"
+              [(ngModel)]="prestamo.monto"
+              (input)="calcularMontoCuota()"
+              min="0"
+              required
+            />
+            <span class="hint">USD</span>
+          </div>
+          <div class="hint" *ngIf="capitalDisponible > 0">
+            Capital disponible: {{ capitalDisponible | number : "1.2-2" }} USD
+          </div>
+          <div class="error" *ngIf="excedeCapital" style="color: brown">
+            El monto excede su capital disponible.
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Tasa interés (%)</label>
+          <input
+            type="number"
+            name="tasa_interes"
+            [(ngModel)]="prestamo.tasa_interes"
+            (input)="calcularMontoCuota()"
+            min="0"
+            step="0.01"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label>Frecuencia pago</label>
+          <select
+            name="frecuencia_pago"
+            [(ngModel)]="prestamo.id_frecuencia"
+            (ngModelChange)="recalcularPrestamo()"
+            required
+          >
+            <option value="" disabled selected>Seleccionar...</option>
+            <option
+              *ngFor="let frecuencia of frecuenciaPago"
+              [ngValue]="frecuencia.id_frecuencia"
+            >
+              {{ frecuencia.frecuencia_pago }}
+            </option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Número cuotas</label>
+          <input
+            type="number"
+            name="numero_cuotas"
+            [(ngModel)]="prestamo.nro_cuotas"
+            (input)="calcularMontoCuota()"
+            min="1"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label>Monto cuota</label>
+          <div class="static-box">
+            {{ prestamo.monto_cuota || 0 | number : "1.2-2" }}
+          </div>
+        </div>
+
+        <div class="field full">
+          <label>Total estimado a pagar</label>
+          <div class="static-box highlight">
+            {{ totalAPagar | number : "1.2-2" }}
+          </div>
+        </div>
+
+        <div class="actions full">
+          <button
+            type="submit"
+            class="primary"
+            [disabled]="form.invalid || excedeCapital"
+          >
+            Guardar préstamo
+          </button>
+          <button type="button" class="ghost" (click)="volver()">Volver</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="panel resumen">
+      <h3>Resumen</h3>
+      <ul class="stats">
+        <li>
+          <label>Monto base</label>
+          <span>{{ prestamo.monto | number : "1.2-2" }}</span>
+        </li>
+        <li>
+          <label>Tasa (%)</label>
+          <span>{{ prestamo.tasa_interes | number : "1.2-2" }}</span>
+        </li>
+        <li>
+          <label>Interés estimado</label>
+          <span>{{ interesTotal | number : "1.2-2" }}</span>
+        </li>
+        <li>
+          <label>Total a pagar</label>
+          <span>{{ totalAPagar | number : "1.2-2" }}</span>
+        </li>
+        <li>
+          <label>Cuotas</label>
+          <span>{{ prestamo.nro_cuotas }}</span>
+        </li>
+        <li>
+          <label>Monto por cuota</label>
+          <span>{{ prestamo.monto_cuota | number : "1.2-2" }}</span>
+        </li>
+      </ul>
+      <div class="note">
+        Revisa los valores antes de guardar. El código se genera una sola vez.
+      </div>
+    </aside>
+  </div>
+</div>

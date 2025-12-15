@@ -1,0 +1,239 @@
+/* === Layout contenedor === */
+.mis-pagos-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  animation: fadeIn 0.4s ease;
+}
+
+/* === Barra de resumen === */
+.resumen-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+.resumen-item {
+  background: linear-gradient(135deg, #ffffff, #f5f7fa);
+  border: 1px solid #e5e8ec;
+  border-radius: 0.9rem;
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.resumen-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(56, 119, 255, 0.12),
+    transparent 55%
+  );
+  opacity: 0.9;
+  pointer-events: none;
+}
+.resumen-item label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #667085;
+  margin-bottom: 0.25rem;
+}
+.resumen-item span {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* === Grid de tarjetas === */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+/* === Tarjeta de pago === */
+.pago-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e5e8ec;
+  border-radius: 1.1rem;
+  padding: 1rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px -3px rgba(24, 39, 75, 0.05),
+    0 2px 4px -2px rgba(24, 39, 75, 0.07);
+  transition: border-color 0.3s ease,
+    transform 0.4s cubic-bezier(0.12, 0.8, 0.32, 1), box-shadow 0.3s ease;
+}
+.pago-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 70% 20%,
+    rgba(99, 102, 241, 0.18),
+    rgba(99, 102, 241, 0) 70%
+  );
+  opacity: 0.55;
+  pointer-events: none;
+}
+.pago-card:hover {
+  transform: translateY(-4px);
+  border-color: #c3d4f9;
+  box-shadow: 0 10px 25px -5px rgba(24, 39, 75, 0.12),
+    0 4px 8px -3px rgba(24, 39, 75, 0.1);
+}
+
+/* Top */
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+.avatar.small {
+  width: 42px;
+  height: 42px;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(99, 102, 241, 0.35);
+}
+
+.title-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.title-block h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: 0.3px;
+}
+
+/* Pills */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.32rem 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 2rem;
+  position: relative;
+  overflow: hidden;
+  line-height: 1;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+}
+.pill.estado.pagado {
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  color: #047857;
+  border-color: #a7f3d0;
+}
+.pill.estado.pendiente {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #92400e;
+  border-color: #fcd34d;
+}
+.pill.fecha {
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  color: #334155;
+  border-color: #cbd5e1;
+}
+
+/* Meta grid */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+.meta {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 0.55rem 0.7rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.meta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 80% 25%,
+    rgba(99, 102, 241, 0.15),
+    transparent 65%
+  );
+  opacity: 0.55;
+  pointer-events: none;
+}
+.meta label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+}
+.meta span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: 0.3px;
+}
+
+/* Estado vacío */
+.estado-vacio {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* Animación fadeIn reutilizada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 680px) {
+  .meta-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+  .pago-card {
+    padding: 0.95rem 0.95rem 1rem;
+  }
+  .title-block h3 {
+    font-size: 0.95rem;
+  }
+}

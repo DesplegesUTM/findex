@@ -1,0 +1,29 @@
+<div class="calendar">
+  <div class="calendar-header">
+    <span>May 2025</span>
+    <div class="nav">
+      <span>&lt;</span>
+      <span>&gt;</span>
+    </div>
+  </div>
+
+  <div class="dias-semana">
+    <div *ngFor="let dia of diasSemana" class="dia-semana">
+      {{ dia }}
+    </div>
+  </div>
+
+  <div class="dias-mes">
+    <div
+      *ngFor="let dia of calendarDays"
+      class="dia"
+      [ngClass]="{
+        activo: dia.actual,
+        seleccionado: dia.dia === selectedDay
+      }"
+      (click)="seleccionarDia(dia.dia)"
+    >
+      {{ dia.dia > 0 ? dia.dia : "" }}
+    </div>
+  </div>
+</div>

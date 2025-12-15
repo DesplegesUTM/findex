@@ -1,0 +1,68 @@
+<app-header></app-header>
+
+<div class="mis-pagos-wrapper" *ngIf="pagosList.length; else vacio">
+  <div class="resumen-bar">
+    <div class="resumen-item">
+      <label>Pagos</label>
+      <span>{{ pagosList.length }}</span>
+    </div>
+    <div class="resumen-item">
+      <label>Pagados</label>
+      <span>{{ cantidadPagados }}</span>
+    </div>
+    <div class="resumen-item">
+      <label>Pendientes</label>
+      <span>{{ cantidadPendientes }}</span>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="pago-card" *ngFor="let pago of pagosList; trackBy: trackById">
+      <div class="card-top">
+        <div class="avatar small">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png"
+            alt="avatar"
+          />
+        </div>
+        <div class="title-block">
+          <h3>Oferta {{ pago.codigo_oferta }}</h3>
+          <div class="pills">
+            <span
+              class="pill estado"
+              [ngClass]="pago.estado ? 'pagado' : 'pendiente'"
+              >{{ pago.estado ? "Pagado" : "Pendiente" }}</span
+            >
+            <span class="pill fecha">{{
+              pago.fecha_pago | date : "dd/MM/yyyy"
+            }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="meta-grid">
+        <div class="meta">
+          <label>Monto cuota</label>
+          <span>{{ pago.monto_cuota | currency : "USD" }}</span>
+        </div>
+        <div class="meta">
+          <label>Monto pagado</label>
+          <span>{{ pago.monto_pagado | currency : "USD" }}</span>
+        </div>
+        <div class="meta">
+          <label>Cuotas totales</label>
+          <span>{{ pago.nro_cuotas }}</span>
+        </div>
+        <div class="meta" *ngIf="pago.id_prestamo">
+          <label>ID préstamo</label>
+          <span>{{ pago.id_prestamo }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #vacio>
+  <div class="estado-vacio">
+    <p>No tienes pagos registrados.</p>
+  </div>
+</ng-template>

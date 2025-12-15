@@ -1,0 +1,143 @@
+<app-header></app-header>
+
+<div class="detalle-wrapper">
+  <div class="detalle-layout">
+    <!-- Columna izquierda: resumen del préstamo -->
+    <section class="loan-card fade-in">
+      <header class="card-header">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png"
+          alt="Prestamista"
+        />
+        <div class="info">
+          <span class="name"
+            >{{ prestamo.nombre_prestamista }}
+            {{ prestamo.apellido_prestamista }}</span
+          >
+          <span class="date"
+            >Publicado:
+            {{ prestamo.fecha_publicacion | date : "dd/MM/yyyy" }}</span
+          >
+        </div>
+        <span
+          class="badge"
+          [ngClass]="{
+            platino: prestamo.rango === 'Platino',
+            oro: prestamo.rango === 'Oro',
+            diamante: prestamo.rango === 'Diamante'
+          }"
+          >{{ prestamo.rango }}</span
+        >
+      </header>
+
+      <div class="grid-details">
+        <div class="detail-item">
+          <label>Monto</label>
+          <span>{{ prestamo.monto | currency : "USD" }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Interés</label>
+          <span>{{ prestamo.tasa_interes }} %</span>
+        </div>
+        <div class="detail-item">
+          <label>Cuotas</label>
+          <span>{{ prestamo.nro_cuotas }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Cuota</label>
+          <span>{{ prestamo.monto_cuota | currency : "USD" }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Frecuencia</label>
+          <span>{{ prestamo.frecuencia_pago }}</span>
+        </div>
+        <div class="detail-item">
+          <label>Total a pagar</label>
+          <span>{{
+            +prestamo.monto + +prestamo.monto * (+prestamo.tasa_interes / 100)
+              | number : "1.2-2"
+          }}</span>
+        </div>
+        <div class="detail-item emphasis">
+          <label>Saldo restante</label>
+          <span>{{ saldoRestanteTotal | currency : "USD" }}</span>
+        </div>
+        <div class="detail-item progress-tile" *ngIf="totalAPagar">
+          <label>Progreso de pago</label>
+          <div class="progress-wrapper" aria-label="Progreso del préstamo">
+            <div class="progress-bar">
+              <div
+                class="progress-fill"
+                [style.width.%]="progresoPorcentaje"
+                [attr.data-pct]="progresoPorcentaje | number : '1.0-0'"
+              ></div>
+            </div>
+            <div class="progress-stats">
+              <span>{{ totalPagado | currency : "USD" }} pagado</span>
+              <span>{{ progresoPorcentaje | number : "1.0-0" }}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer *ngIf="tipo == 2 && prestamoIdParaPago" class="card-footer">
+        <a [routerLink]="['/registrar-pago', prestamoIdParaPago]">
+          Registrar pago
+        </a>
+      </footer>
+    </section>
+
+    <!-- Columna derecha: pagos -->
+    <section class="pagos-panel">
+      <div class="panel-header">
+        <h3>Pagos realizados</h3>
+        <div class="pill" *ngIf="pagos.length > 0">{{ pagos.length }}</div>
+      </div>
+      <div *ngIf="pagos.length === 0" class="empty">
+        No hay pagos registrados para este préstamo.
+      </div>
+      <div class="pagos-list" *ngIf="pagos.length > 0">
+        <article *ngFor="let pago of pagos" class="pago-card">
+          <div class="pago-meta">
+            <span class="fecha">{{
+              pago.fecha_pago | date : "dd/MM/yyyy"
+            }}</span>
+            <span class="estado-tag" [ngClass]="pago.estado ? 'ok' : 'warn'">
+              {{ pago.estado ? "Pagado" : "Pendiente" }}
+            </span>
+          </div>
+          <ul class="pago-data">
+            <li>
+              <label>Monto</label>
+              <span>{{ pago.monto_pagado | currency : "USD" }}</span>
+            </li>
+            <li>
+              <label>Método</label>
+              <span>{{
+                pago.id_metodo == 1
+                  ? "Efectivo"
+                  : pago.id_metodo == 2
+                  ? "Transferencia"
+                  : pago.id_metodo == 3
+                  ? "Trueque"
+                  : "Depósito"
+              }}</span>
+            </li>
+            <li>
+              <label>Comprobante</label>
+              <span
+                ><a [href]="'/api' + pago.comprobante_url" target="_blank"
+                  >Ver</a
+                ></span
+              >
+            </li>
+            <li>
+              <label>Saldo restante</label>
+              <span>{{ pago.saldo_restante | currency : "USD" }}</span>
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </div>
+</div>

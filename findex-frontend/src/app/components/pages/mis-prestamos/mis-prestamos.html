@@ -1,0 +1,115 @@
+<app-header></app-header>
+
+<div class="mis-prestamos-wrapper" *ngIf="misPrestamos.length; else vacio">
+  <div class="resumen-bar">
+    <div class="resumen-item">
+      <label>Prestamos</label>
+      <span>{{ misPrestamos.length }}</span>
+    </div>
+    <div class="resumen-item">
+      <label>Monto total</label>
+      <span>{{ totalMonto | currency : "USD" : "symbol" : "1.0-0" }}</span>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div
+      class="loan-card"
+      *ngFor="let oferta of misPrestamos; trackBy: trackById"
+    >
+      <div class="card-top">
+        <div class="avatar">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png"
+            alt="avatar"
+          />
+        </div>
+        <div class="title-block">
+          <!-- Mostrar contraparte según el tipo de usuario logueado -->
+          <h3 *ngIf="tipo === 1">
+            {{ oferta.nombre_prestatario }} {{ oferta.apellido_prestatario }}
+          </h3>
+          <h3 *ngIf="tipo === 2">
+            {{ oferta.nombre_prestamista }} {{ oferta.apellido_prestamista }}
+          </h3>
+          <div class="pills">
+            <span
+              class="pill tipo"
+              [ngClass]="tipo === 1 ? 'prestamista' : 'prestatario'"
+              >{{ tipo === 1 ? "Prestamista" : "Prestatario" }}</span
+            >
+            <!-- estado booleano: true=Activo, false=Pendiente -->
+            <span
+              class="pill estado"
+              [ngClass]="oferta.estado ? 'estado-activo' : 'estado-pendiente'"
+              >{{ oferta.estado ? "Activo" : "Pendiente" }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta">
+          <label>Fecha inicio</label>
+          <span>{{ oferta.fecha_inicio | date : "dd/MM/yyyy" }}</span>
+        </div>
+        <div class="meta">
+          <label>Fecha fin</label>
+          <span>{{ oferta.fecha_fin | date : "dd/MM/yyyy" }}</span>
+        </div>
+        <div class="meta" *ngIf="oferta.monto">
+          <label>Monto</label>
+          <span>{{
+            oferta.monto | currency : "USD" : "symbol" : "1.0-0"
+          }}</span>
+        </div>
+        <div class="meta" *ngIf="oferta.tasa_interes">
+          <label>Interes</label>
+          <span>{{ oferta.tasa_interes }}%</span>
+        </div>
+        <!-- <div class="meta" *ngIf="oferta.nro_cuotas">
+          <label>Cuotas</label>
+          <span>{{ oferta.nro_cuotas }}</span>
+        </div> -->
+        <!-- <div class="meta" *ngIf="oferta.monto_cuota">
+          <label>Cuota</label>
+          <span>{{
+            oferta.monto_cuota | currency : "USD" : "symbol" : "1.0-0"
+          }}</span>
+        </div> -->
+      </div>
+
+      <!-- <div
+        class="progress-line"
+        *ngIf="oferta.fecha_inicio && oferta.fecha_fin"
+      >
+        <div class="bar">
+          <div
+            class="fill"
+            [style.width.%]="
+              calcularProgreso(oferta.fecha_inicio, oferta.fecha_fin)
+            "
+          ></div>
+        </div>
+        <span class="percent"
+          >{{ calcularProgreso(oferta.fecha_inicio, oferta.fecha_fin) }}%</span
+        >
+      </div> -->
+
+      <div class="actions">
+        <button
+          class="primary"
+          [routerLink]="['/detalle-prestamo', oferta.id_oferta]"
+        >
+          Ver detalles
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #vacio>
+  <div class="estado-vacio">
+    <p>No tienes préstamos todavía.</p>
+  </div>
+</ng-template>

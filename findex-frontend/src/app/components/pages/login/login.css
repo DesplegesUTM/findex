@@ -1,0 +1,234 @@
+body,
+html {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Estilos globales del contenedor principal */
+.home-container {
+  font-family: "Poppins", sans-serif;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0; /* Elimina padding global */
+  margin: 0; /* Elimina margen global */
+}
+
+/* Contenedor general del contenido */
+.content {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden; /* evita que los hijos se salgan */
+  box-sizing: border-box;
+}
+
+/* Título superior izquierdo */
+.content h1 {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  font-size: 2.8rem;
+  color: #818080;
+}
+
+/* Acciones (Crear cuenta + Iniciar sesión) en la parte superior derecha */
+.actions {
+  position: absolute;
+  top: 60px;
+  right: 40px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Link de crear cuenta */
+.link {
+  text-decoration: none;
+  color: #818080;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: 0.3s;
+}
+
+.link:hover {
+  border-bottom: 1px solid #818080;
+}
+
+/* Botón de iniciar sesión */
+.signin-btn {
+  padding: 10px 18px;
+  background-color: #2997c2;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Logo SVG animado */
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo svg {
+  /* width: 100%; */
+  margin-left: 150px;
+  margin-top: 100px;
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px #58e5bb);
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px #7effd4);
+    transform: scale(1.05);
+  }
+}
+
+/* Descripción debajo del logo */
+.description {
+  font-size: 32px;
+  width: 50%;
+  margin-left: 130px;
+  margin-top: 250px;
+  color: #818080;
+  span {
+    color: #8a8af7;
+    font-weight: bold;
+  }
+}
+
+/* Dropdown (formulario login oculto inicialmente) */
+.dropdown {
+  position: relative;
+}
+
+/* Formulario de inicio de sesión desplegable */
+.login-form {
+  position: absolute;
+  top: 50px; /* o ajusta según lo necesites */
+  right: 0;
+  z-index: 10;
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.04);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  animation: slideIn 0.4s ease;
+  width: 280px;
+}
+
+/* Animación de aparición */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Inputs del formulario */
+.login-form input {
+  width: 91%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: 1px solid #d6d6d6;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #000000;
+  outline: none;
+  transition: 0.3s;
+}
+
+.login-form input::placeholder {
+  color: #818080;
+}
+
+.login-form input:focus {
+  border: 1px solid #1781b3;
+}
+
+/* Botón del formulario */
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #3fcf57;
+  color: #ffffff;
+  transition: background 0.3s ease;
+}
+
+.login-form button:disabled {
+  background-color: #2997c2;
+  color: #ffffff;
+  cursor: not-allowed;
+}
+
+/* Footer del formulario */
+.footer {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #818080;
+}
+
+.footer a {
+  color: #8a8af7;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content h1 {
+    font-size: 2rem;
+    top: 20px;
+    left: 20px;
+  }
+
+  .actions {
+    top: 20px;
+    right: 20px;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .logo svg {
+    width: 180px;
+    margin-top: 80px;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .login-form {
+    width: 100%;
+    max-width: 300px;
+  }
+}

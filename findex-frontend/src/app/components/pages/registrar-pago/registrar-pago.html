@@ -1,0 +1,101 @@
+<div class="register-wrapper">
+  <div class="register-layout">
+    <section class="panel pago-form">
+      <header class="panel-header">
+        <h2>Registrar Pago</h2>
+        <div class="pill neutral">Préstamo #{{ pago.id_prestamo || "-" }}</div>
+      </header>
+
+      <form
+        (ngSubmit)="guardarCambios()"
+        #form="ngForm"
+        class="form-grid"
+        novalidate
+      >
+        <div class="field full">
+          <label>Monto de la cuota</label>
+          <div class="input-wrapper">
+            <input
+              type="number"
+              name="monto_pagado"
+              [(ngModel)]="pago.monto_pagado"
+              [value]="montoCuota"
+              required
+              min="0"
+              step="0.01"
+            />
+            <span class="hint">USD</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Método de pago</label>
+          <select name="id_metodo" [(ngModel)]="pago.id_metodo" required>
+            <option value="" disabled selected>Seleccionar...</option>
+            <option
+              *ngFor="let metodo of metodoPago"
+              [ngValue]="metodo.id_metodo"
+            >
+              {{ metodo.metodo }}
+            </option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Saldo restante estimado</label>
+          <div class="static-box">{{ saldoPendiente | currency : "USD" }}</div>
+        </div>
+
+        <div class="field full">
+          <label>Comprobante (imagen)</label>
+          <div class="file-drop" (click)="fileInput.click()" tabindex="0">
+            <input
+              #fileInput
+              type="file"
+              name="foto_comprobante"
+              accept="image/*"
+              (change)="onFileSelected($event)"
+              required
+            />
+            <div class="file-inner" *ngIf="!nombreArchivo">
+              <span class="icon">⬆</span>
+              <p><strong>Haz clic o arrastra</strong> para cargar</p>
+              <small>Formatos: JPG, PNG · Máx 5MB</small>
+            </div>
+            <div class="file-selected" *ngIf="nombreArchivo">
+              <span class="icon ok">✔</span>
+              <p>{{ nombreArchivo }}</p>
+              <small>Archivo listo para subir</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions full">
+          <button type="submit" [disabled]="form.invalid" class="primary">
+            Guardar pago
+          </button>
+          <button type="button" (click)="volver()" class="ghost">Volver</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="panel resumen">
+      <h3>Resumen</h3>
+      <ul class="stats">
+        <li>
+          <label>Cuota actual</label>
+          <span>{{ montoCuota | currency : "USD" }}</span>
+        </li>
+        <li>
+          <label>Saldo restante</label>
+          <span>{{ saldoPendiente | currency : "USD" }}</span>
+        </li>
+        <li *ngIf="totalPagado !== undefined">
+          <label>Total pagado estimado</label>
+          <span>{{ totalPagado | currency : "USD" }}</span>
+        </li>
+      </ul>
+      <div class="note">Verifica el monto y el método antes de guardar.</div>
+    </aside>
+  </div>
+</div>

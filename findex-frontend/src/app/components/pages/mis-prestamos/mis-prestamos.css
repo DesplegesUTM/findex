@@ -1,0 +1,288 @@
+/* Estilos modernos para Mis Préstamos */
+.mis-prestamos-wrapper {
+  padding: 1.8rem 1.6rem 2.5rem;
+  font-family: "Poppins", sans-serif;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Resumen */
+.resumen-bar {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin: 0 0 1.4rem;
+}
+.resumen-item {
+  background: #fff;
+  border: 1px solid #e3ebf2;
+  padding: 0.85rem 1.1rem 0.9rem;
+  border-radius: 14px;
+  min-width: 150px;
+  position: relative;
+  box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+.resumen-item label {
+  display: block;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #4a6270;
+  margin-bottom: 0.25rem;
+}
+.resumen-item span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #123642;
+  letter-spacing: 0.5px;
+}
+
+/* Grid de tarjetas */
+.cards-grid {
+  display: grid;
+  gap: 1.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.loan-card {
+  background: #fff;
+  border: 1px solid #e5eaf1;
+  border-radius: 20px;
+  padding: 1.35rem 1.4rem 1.6rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: 0.35s;
+  overflow: hidden;
+}
+.loan-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 85% 15%,
+    rgba(41, 151, 194, 0.25),
+    transparent 60%
+  );
+  opacity: 0.4;
+  pointer-events: none;
+}
+.loan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 26px -8px rgba(0, 0, 0, 0.12),
+    0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* Parte superior */
+.card-top {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2997c2, #1d6f8f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px -3px rgba(41, 151, 194, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  position: relative;
+}
+.avatar img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+.title-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.title-block h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: #153946;
+}
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.pill {
+  background: #eff4f8;
+  padding: 0.38rem 0.75rem;
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  border-radius: 999px;
+  color: #2a4a5b;
+  border: 1px solid #d3e2ea;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.pill.prestamista {
+  background: #e8f9f1;
+  color: #0d6b42;
+  border-color: #bfe8d6;
+}
+.pill.prestatario {
+  background: #fdf3e6;
+  color: #9b5a00;
+  border-color: #f3d2a3;
+}
+.pill.estado-activo {
+  background: #e7f6ff;
+  color: #0d5272;
+  border-color: #b9e4f7;
+}
+.pill.estado-pendiente {
+  background: #fff8e5;
+  color: #805d09;
+  border-color: #f3d79d;
+}
+.pill.estado-vencido {
+  background: #ffe9e9;
+  color: #8b1f1f;
+  border-color: #f3b2b2;
+}
+.pill.estado-finalizado {
+  background: #e8f9f1;
+  color: #0d6b42;
+  border-color: #bfe8d6;
+}
+.pill.estado-generico {
+  background: #ede8fd;
+  color: #5531a9;
+  border-color: #d4c8fa;
+}
+
+/* Metadatos */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.9rem 1.1rem;
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.meta label {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.95px;
+  color: #476170;
+}
+.meta span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #1e3d4a;
+}
+
+/* Barra de progreso */
+.progress-line {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 0.2rem;
+}
+.progress-line .bar {
+  flex: 1;
+  height: 8px;
+  background: #e4edf2;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-line .bar .fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2997c2, #1d6f8f);
+  width: 0;
+  transition: width 0.6s cubic-bezier(0.55, 0.1, 0.3, 1);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+    0 2px 4px rgba(0, 0, 0, 0.15);
+}
+.progress-line .percent {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #215065;
+  min-width: 32px;
+  text-align: right;
+}
+
+/* Acciones */
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+.actions .primary {
+  background: linear-gradient(135deg, #2997c2, #1d6f8f);
+  color: #fff;
+  padding: 0.65rem 1.05rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px -2px rgba(41, 151, 194, 0.45),
+    0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: 0.25s;
+}
+.actions .primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -3px rgba(41, 151, 194, 0.55),
+    0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Estado vacío */
+.estado-vacio {
+  text-align: center;
+  padding: 5rem 1rem;
+  font-size: 0.9rem;
+  color: #54626b;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .loan-card {
+    padding: 1.2rem 1.1rem 1.35rem;
+  }
+  .title-block h3 {
+    font-size: 0.95rem;
+  }
+  .meta-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .resumen-bar {
+    flex-direction: column;
+  }
+  .avatar {
+    width: 50px;
+    height: 50px;
+  }
+  .avatar img {
+    width: 34px;
+    height: 34px;
+  }
+}
