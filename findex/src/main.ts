@@ -19,7 +19,11 @@ async function bootstrap() {
   //     'Access-Control-Allow-Origin',
   //   ],
   // });
-  app.enableCors();
+  app.enableCors({
+    origin: 'https://findex-frontend.onrender.com',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
 
   // Swagger configuration
   const config = new DocumentBuilder()
