@@ -7,11 +7,11 @@ export class DatabaseService {
 
   constructor() {
     // Permitir ambos nombres de variable BD_DATABASE o DB_DATABASE para evitar fallos de configuración
-    const databaseName = process.env.BD_DATABASE || process.env.DB_DATABASE;
+    //const databaseName = process.env.BD_DATABASE || process.env.DB_DATABASE;
     this.pool = new Pool({
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
-      database: process.env.DB_DATABASE,
+      database: 'postgres',
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
     });
