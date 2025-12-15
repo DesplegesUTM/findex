@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://findex-backend.onrender.com',
+  apiUrl: 'https://findex-backend1.onrender.com',
 };
