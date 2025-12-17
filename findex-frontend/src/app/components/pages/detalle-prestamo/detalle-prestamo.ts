@@ -4,6 +4,7 @@ import { PagosService } from '../../../services/pago/pagos.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Header } from '../../header/header';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-detalle-prestamo',
@@ -17,6 +18,7 @@ export class DetallePrestamo {
     private pagosService: PagosService
   ) {}
   private activatedRoute = inject(ActivatedRoute);
+  public baseUrl = environment.apiUrl;
   tipo = Number(localStorage.getItem('tipo'));
   prestamo: any = {};
   pagos: any[] = [];
