@@ -18,13 +18,13 @@ jobs:
 
       - name: Backend - Install & Build
         run: |
-          cd backend
+          cd findex
           npm install
           npm run build
 
       - name: Frontend - Install & Build
         run: |
-          cd frontend
+          cd findex-frontend
           npm install
           npm run build
 
