@@ -1,5 +1,5 @@
 ###APIS QUE SE SIRVEN A LA APLICACION FRONTEND
-POST http://localhost:3000/auth/login
+POST  https://findex-backend1.onrender.com/auth/login
 Content-Type: application/json
 
 {
@@ -67,7 +67,7 @@ GET http://localhost:3000/prestatario
 ### Prestamistas
 GET http://localhost:3000/prestamista
 ### Ofertas de Prestamo
-GET  https://findex-backend.onrender.com/oferta-prestamo
+GET  https://findex-backend1.onrender.com/oferta-prestamo
 ### Prestamos
 GET http://localhost:3000/prestamo
 ### Pagos
