@@ -20,7 +20,7 @@ async function bootstrap() {
   //   ],
   // });
   app.enableCors({
-    origin: 'https://findex-frontend.onrender.com',
+    origin: 'https://findex-x.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
